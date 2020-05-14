@@ -8,13 +8,11 @@ namespace MiniRPGclass
     class Hero
     {
         Random gener = new Random();
-        public string Name;
-        public int Health;
-        public int Damage;
-        public int GetDamage;
-        public int Scatter;
-        public bool Death;
-        public string Die;
+        protected string Name;
+        protected int Health;
+        protected int Damage;
+        protected bool Death;
+        protected string Die;
         public Hero(string _name, int _health, int _damage)
         {
             Name = _name;
@@ -38,14 +36,14 @@ namespace MiniRPGclass
             Console.WriteLine($"Базовый урон: {Damage}");
         }
 
-        public int TakeDamage()
+        public int TakeDamage(int GetDamage)
         {
             Health = Health - GetDamage;
             return Health;
         }
         public int GiveDamage()
         {
-            Scatter = gener.Next(-10, 10);
+            int Scatter = gener.Next(-10, 11);
             Damage = Damage + Scatter;
             return Damage;
         }

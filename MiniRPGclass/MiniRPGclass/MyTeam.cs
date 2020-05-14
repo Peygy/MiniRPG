@@ -11,15 +11,16 @@ namespace MiniRPGclass
         Samur Hero2 = new Samur();
         Djager Hero3 = new Djager();
         Hunter Hero4 = new Hunter();
-        List<string> Heroes = new List<string>();// Чтобы не выдавало ошибку, в будующем перенесу
+        List<Hero> Heroes = new List<Hero>();
+        List<Hero> Team = new List<Hero>();
         public void NameTeam(string _name)
         {
             Name = _name;
         }
 
-        public void AddHero(int _indexteam)
+        public void AddHero(Hero input)
         {
-            Team.Add(Heroes[_indexteam]);
+            Heroes.Add(input);
         }
 
         public void GetDamage(int index, int count)
