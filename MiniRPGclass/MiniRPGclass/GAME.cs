@@ -6,6 +6,6 @@ namespace MiniRPGclass
 {
     class GAME
     {
-
+        
     }
 }
