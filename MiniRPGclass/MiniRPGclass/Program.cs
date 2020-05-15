@@ -30,7 +30,7 @@ namespace MiniRPGclass
             team.NameTeam(name);
             Console.Clear();
 
-            Console.WriteLine($"Компьютер выбрал имя: {CompName()}");
+            Console.WriteLine($"Компьютер пппппппвыбрал имя: {CompName()}");
             Console.ReadLine();
             Console.Clear();
 
