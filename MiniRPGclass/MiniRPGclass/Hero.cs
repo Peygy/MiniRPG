@@ -20,7 +20,7 @@ namespace MiniRPGclass
             Damage = _damage;
         }
 
-        public void Print()
+        public void Print(int index)//Вывод характеристик героя
         {
             if (Health < 0)
             {
@@ -31,17 +31,15 @@ namespace MiniRPGclass
             {
                 Die = String.Empty;
             }
-            Console.WriteLine($"Имя: {Name} {Die}");
-            Console.WriteLine($"Здоровье: {Health}");
-            Console.WriteLine($"Базовый урон: {Damage}");
+            Console.WriteLine($"Имя: {Name[index]} {Die}, Здоровье: {Health[index]}, Базовый урон: {Damage[index]}");
         }
 
-        public int TakeDamage(int GetDamage)
+        public int TakeDamage(int GetDamage)//Метод для получения урона
         {
             Health = Health - GetDamage;
             return Health;
         }
-        public int GiveDamage()
+        public int GiveDamage()//Метод для нанесения урона 
         {
             int Scatter = gener.Next(-10, 11);
             Damage = Damage + Scatter;
