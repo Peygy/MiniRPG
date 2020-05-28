@@ -6,9 +6,11 @@ namespace MiniRPGclass
 {
     class Hunter : Hero
     {
-        public Hunter(string _name, int _health, int _damage) : base(_name, _health, _damage)
+        public Hunter()
         {
-            
+            Name = "Охотник";
+            Health = 110;
+            Damage = 100;
         }
     }
 }

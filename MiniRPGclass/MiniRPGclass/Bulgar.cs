@@ -6,10 +6,11 @@ namespace MiniRPGclass
 {
     class Bulgar : Hero
     {
-        public Bulgar(string _name, int _health, int _damage) : base(_name, _health, _damage)
+        public Bulgar()
         {
-
+            Name = "Джагернаут";
+            Health = 185;
+            Damage = 80;
         }
-        
     }
 }

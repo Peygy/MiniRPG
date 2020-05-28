@@ -4,12 +4,24 @@ using System.Text;
 
 namespace MiniRPGclass
 {
-    class PKTeam : Team
+    class PCTeam : Team
     {
+        protected string PCName { get; set; }
         List<Hero> ComputerTeam;
-        public PKTeam()
+        List<Hero> PCDeath;
+        public PCTeam()
         {
             ComputerTeam = new List<Hero>();
+            PCDeath = new List<Hero>();
+        }
+        public void NameTeamPC(string _name)//Установка имени команды
+        {
+            PCName = _name;
+        }
+        public void AddHeroPC(Hero AddingHero)//Добавление героя в команду
+        {
+            ComputerTeam.Add(AddingHero);
+            PCDeath.Add(AddingHero);
         }
         public int ChooseHeroTakingDamagePK(int index, int count)//Выбор персонажа для получения урона
         {

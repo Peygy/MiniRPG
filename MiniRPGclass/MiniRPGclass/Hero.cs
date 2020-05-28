@@ -8,32 +8,17 @@ namespace MiniRPGclass
     class Hero
     {
         Random gener = new Random();
-        protected string Name;
-        protected int Health;
-        protected int Damage;
-        protected bool Death;
-        protected string Die;
-        public Hero(string _name, int _health, int _damage)
-        {
-            Name = _name;
-            Health = _health;
-            Damage = _damage;
-        }
+        protected string Name { set; get; }
+        protected int Health { set; get; }
+        protected int Damage { set; get; }
+        public bool Death { set; get; }
 
         public void Print(int index)//Вывод характеристик героя
         {
-            if (Health < 0)
-            {
-                Health = 0;
-                Die = "- мёртв";
-            }
-            else
-            {
-                Die = String.Empty;
-            }
-            Console.WriteLine($"Имя: {Name[index]} {Die}, Здоровье: {Health[index]}, Базовый урон: {Damage[index]}");
+            //Как дать понять программе, характер. какого перс. выводить
+            string Die = Death ? " " : " - мёртв";
+            Console.WriteLine($"Имя: {Name} {Die}, Здоровье: {Health}, Базовый урон: {Damage}");
         }
-
         public int TakeDamage(int GetDamage)//Метод для получения урона
         {
             Health = Health - GetDamage;

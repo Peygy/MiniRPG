@@ -6,19 +6,12 @@ namespace MiniRPGclass
 {
     class Team
     {
-        protected string Name { get; set; }
-        List<Hero> team; 
-        public Team()
-        {
-            team = new List<Hero>();
-        }
+        public string Name { get; set; }
         public void NameTeam(string _name)//Установка имени команды
         {
             Name = _name;
         }
-        public void AddHero(Hero AddingHero)//Добавление героя в команду
-        {
-            team.Add(AddingHero);
-        }
+        //Броню персонажей и их разброс я сделаю и подредактирую, как завершу основую боёвку и всё такое в GAME.cs...
+        //Короче доделать основу сначала, а потом уже браться за косметические дороботки...
     }
 }
