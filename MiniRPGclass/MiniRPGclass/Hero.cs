@@ -7,15 +7,33 @@ namespace MiniRPGclass
 {
     class Hero
     {
-        Random gener = new Random();
+        Random gener;
         protected string Name { set; get; }
         protected int Health { set; get; }
         protected int Damage { set; get; }
         public bool Death { set; get; }
+        //public int CounterDeath;
 
-        public void Print(int index)//Вывод характеристик героя
+        public Hero()
         {
-            //Как дать понять программе, характер. какого перс. выводить
+            gener = new Random();
+            Death = true;
+        }
+        public void DeathCheck()//Проверка на смерть
+        {
+            if(Health <= 0)
+            {
+                Health = 0;
+                Death = false;
+                //CounterDeath++;
+            }
+            else
+            {
+                Death = true;
+            }
+        }
+        public void Print()//Вывод характеристик героя
+        {            
             string Die = Death ? " " : " - мёртв";
             Console.WriteLine($"Имя: {Name} {Die}, Здоровье: {Health}, Базовый урон: {Damage}");
         }

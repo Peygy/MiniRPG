@@ -6,30 +6,40 @@ namespace MiniRPGclass
 {
     class PCTeam : Team
     {
-        protected string PCName { get; set; }
-        List<Hero> ComputerTeam;
-        List<Hero> PCDeath;
-        public PCTeam()
+        public override int ChoiceLivingAttacking()//Проверка на выбор живого персонажа(который бьёт)
         {
-            ComputerTeam = new List<Hero>();
-            PCDeath = new List<Hero>();
+            bool compAttacking = true;
+            while (compAttacking)
+            {
+                Attacking = generation.Next(0, 3);
+                bool acceptAttackComp = CompDead[Attacking] != " ";//Как сюда поместить проверку на сметрь
+                if (acceptAttackComp)
+                {
+                    Console.Write("");
+                }
+                else
+                {
+                    compAttacking = false;
+                }
+            }
         }
-        public void NameTeamPC(string _name)//Установка имени команды
+
+        public override int ChoiceLivingAttacked()//Проверка на выбор живого персонажа(которого бьют)
         {
-            PCName = _name;
-        }
-        public void AddHeroPC(Hero AddingHero)//Добавление героя в команду
-        {
-            ComputerTeam.Add(AddingHero);
-            PCDeath.Add(AddingHero);
-        }
-        public int ChooseHeroTakingDamagePK(int index, int count)//Выбор персонажа для получения урона
-        {
-            return ComputerTeam[index].TakeDamage(count);
-        }
-        public int ChooseHeroGivingDamagePK(int index)//Выбор персонажа для нанесения урона
-        {
-            return ComputerTeam[index].GiveDamage();
+            bool compAttacked = true;
+            while (compAttacked)
+            {
+                Attacked = generation.Next(0, 3);
+                bool acceptAttackComp = MyDead[Attacked] != " ";//Как сюда поместить проверку на сметрь
+                if (acceptAttackComp)
+                {
+                    Console.Write("");
+                }
+                else
+                {
+                    compAttacked = false;
+                }
+            }
         }
     }
 }

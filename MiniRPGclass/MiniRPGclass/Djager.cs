@@ -6,7 +6,7 @@ namespace MiniRPGclass
 {
     class Djager : Hero
     {
-        public Djager()
+        public Djager() : base()
         {
             Name = "Бандит";
             Health = 700;

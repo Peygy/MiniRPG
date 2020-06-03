@@ -6,7 +6,7 @@ namespace MiniRPGclass
 {
     class Samur : Hero
     {
-        public Samur()
+        public Samur() : base()
         {
             Name = "Самурай";
             Health = 200;

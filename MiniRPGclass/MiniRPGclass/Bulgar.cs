@@ -6,7 +6,7 @@ namespace MiniRPGclass
 {
     class Bulgar : Hero
     {
-        public Bulgar()
+        public Bulgar() : base()
         {
             Name = "Джагернаут";
             Health = 185;
