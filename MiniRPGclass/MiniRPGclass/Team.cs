@@ -8,7 +8,6 @@ namespace MiniRPGclass
     //Короче доделать основу сначала, а потом уже браться за косметические дороботки...
     class Team
     {
-        Hero heroClass = new Hero();
         public string Name { get; set; }
         List<Hero> team;
         public Team()
@@ -23,12 +22,15 @@ namespace MiniRPGclass
         {
             team.Add(AddingHero);
         }
-        public void CheckingTeam(int CharactNum)//Проверка на нахождение в команде
+        public bool CheckingTeam(Hero CharactNum)//Проверка на нахождение в команде
         {
-            bool accept = team.Contains(heroes[CharactNum - 1]);//Как добавить лист heroes???
-            if (!accept)
+            if (team.Contains(CharactNum))
             {
-                team.AddHero(heroes[CharactNum - 1]);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -40,7 +42,6 @@ namespace MiniRPGclass
         {
             return team[index].GiveDamage();
         }
-
         public void ConclusionHeroes()//Вывод героев
         {
             Console.WriteLine($"Команда {Name}");
@@ -48,71 +49,22 @@ namespace MiniRPGclass
             for (int i = 0; i < team.Count; i++)
             {
                 Console.Write($"{i + 1}. ");
-                heroClass.Print();
+                team[i].Print();
             }
         }
-
-        public virtual int ChoiceLivingAttacking()//Проверка на выбор живого персонажа(который бьёт)
+        public bool ChoiceLiving(int num)//Проверка на выбор живого персонажа
         {
-            bool whomAttack = true;
-            while (whomAttack)
-            {
-                Console.WriteLine("Кем атаковать: ");
-                int.TryParse(Console.ReadLine(), out int attacking);
-                bool acceptAttack = heroClass.DeathCheck()[attacking - 1] != " ";//Как сюда поместить проверку на сметрь
-                if (acceptAttack)
-                {
-                    Console.SetCursorPosition(0, 15);
-                    Console.Write($"{team[attacking - 1]} -  мёртв, выберите другуго персонажа");
-                    Console.ReadLine();
-                    Console.SetCursorPosition(0, 15);
-                    Console.WriteLine("                                                             " +
-                                      "                              ");
-                    Console.SetCursorPosition(0, 15);
-                }
-                else
-                {
-                    whomAttack = false;
-                }
-                //Как сюда правильно return поместить, а то ошибку всегда выдаёт
-            }
+            return team[num].Death;
         }
-
-        public virtual int ChoiceLivingAttacked()//Проверка на выбор живого персонажа(которого бьют)
+        public void DeathMessage(int attack)//Выводит сообщенеи о смерти(сделал здесь, т.к с командой есть вопрос, как к ней обратиться)
         {
-            bool whoAttack = true;
-            while (whoAttack)
-            {
-                Console.WriteLine("Кого атаковать: ");
-                int.TryParse(Console.ReadLine(), out int attacked);
-                bool acceptAttack = heroClass.DeathCheck[attacked - 1] != " ";//Как сюда поместить проверку на сметрь
-                if (acceptAttack)
-                {
-                    Console.SetCursorPosition(0, 18);
-                    Console.Write($"{team[attacked - 1]} - мёртв, выберите другуго персонажа");
-                    Console.ReadLine();
-                    Console.SetCursorPosition(0, 18);
-                    Console.WriteLine("                                                              " +
-                                      "                             ");
-                    Console.SetCursorPosition(0, 18);
-                }
-                else
-                {
-                    whoAttack = false;
-                }
-                //Как сюда правильно return поместить, а то ошибку всегда выдаёт
-            }
-        }
-
-        public void TotalOfGame()
-        {
-            Console.Clear();
-            Console.WriteLine($"{team[ChoiceLivingAttacking()]} ({Name}) нанёс {ChooseHeroGivingDamage(ChoiceLivingAttacking())} " +
-                              $"едениц урона {team[ChoiceLivingAttacked()]} ({Name})");
-            Console.WriteLine($"{team[ChoiceLivingAttacked()]}. ");
-            Console.Write("Нажмите Enter...");
+            Console.SetCursorPosition(0, 15);
+            Console.Write($"{team[attack - 1]} -  мёртв, выберите другого персонажа");//Вот здесь...
             Console.ReadLine();
-            Console.Clear();
+            Console.SetCursorPosition(0, 15);
+            Console.WriteLine("                                                             " +
+                              "                              ");
+            Console.SetCursorPosition(0, 15);
         }
     }
 }

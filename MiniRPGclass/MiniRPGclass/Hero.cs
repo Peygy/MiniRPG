@@ -12,8 +12,6 @@ namespace MiniRPGclass
         protected int Health { set; get; }
         protected int Damage { set; get; }
         public bool Death { set; get; }
-        //public int CounterDeath;
-
         public Hero()
         {
             gener = new Random();
@@ -24,8 +22,7 @@ namespace MiniRPGclass
             if(Health <= 0)
             {
                 Health = 0;
-                Death = false;
-                //CounterDeath++;
+                Death = false;              
             }
             else
             {

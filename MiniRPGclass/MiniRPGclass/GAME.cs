@@ -5,28 +5,31 @@ using System.Text;
 
 namespace MiniRPGclass
 {
+    
     class GAME
     {
-        int MyDeath = 0;
-        int PCDeaths = 0;
-        Random generation = new Random();
-        Team team = new Team();
-        PlayerTeam myTeam = new PlayerTeam();
-        PCTeam PcTeam = new PCTeam();
+        Random generation;
+        PlayerTeam myTeam;
+        PCTeam PcTeam;
         List<Hero> heroes;
         public GAME()
         {
+            generation = new Random();
+            PcTeam = new PCTeam();
+            myTeam = new PlayerTeam();
             heroes = new List<Hero>();
+            heroes.Add(new Bulgar());
+            heroes.Add(new Djager());
+            heroes.Add(new Samur());
+            heroes.Add(new Hunter());
         }
-        public void ChoosePlayerName()// Определение имени команды игрока
+
+        public void ChooseName()// Определение имени команды 
         {
             Console.Write("Паридумай имя своей команде: ");
             string name = Console.ReadLine();
             myTeam.NameTeam(name);
             Console.Clear();
-        }
-        public void ChooseCompName()// Определение имени команды ПК
-        {            
             List<string> CompName = new List<string>();
             CompName.Add("Кибран");
             CompName.Add("ЭОН");
@@ -38,21 +41,14 @@ namespace MiniRPGclass
             Console.ReadLine();
             Console.Clear();
         }
-        public void HeroesList()//Вывод всех героев
+
+        public void AddingHero()//Добавление героев в команды и их вывод
         {
-            Hero heroClass = new Hero();
-            heroes.Add(new Bulgar());
-            heroes.Add(new Djager());
-            heroes.Add(new Samur());
-            heroes.Add(new Hunter());
-            for (int i = 0; i < heroes.Count; i++)
+            for (int k = 0; k < heroes.Count; k++)
             {
-                Console.Write($"{i + 1}. ");
-                heroClass.Print();
+                Console.Write($"{k + 1}. ");
+                heroes[k].Print();
             }
-        }
-        public void AddingHero()//Добавление героев в команды(для внешнего). Сами методы добавления в классах команд
-        {
             int l = 0;
             int i = 0;
             while (l < 3)
@@ -62,55 +58,93 @@ namespace MiniRPGclass
                 Console.SetCursorPosition(0, heroes.Count + 2);
                 Console.WriteLine("Выбери персонажа: ");
                 int.TryParse(Console.ReadLine(), out int CharactNum);
-                myTeam.CheckingTeam(CharactNum);
-
+                myTeam.CheckingTeam(heroes[CharactNum]);
+                myTeam.AddHero(heroes[CharactNum]);
             }
             while (i < 3)
             {
                 int CompCharct = generation.Next(0, 4);
-                PcTeam.CheckingTeam(CompCharct);
+                PcTeam.CheckingTeam(heroes[CompCharct]);
+                PcTeam.AddHero(heroes[CompCharct]);
             }
         }
-
+   
         public void MainGame()//Основная Боёвка(НЕДОДЕЛАНА)
         {
             //attackig - ОН АТАКУЕТ !!!
             //attacked - ЕГО АТАКУЮТ !!!
             Console.Clear();
-            while (MyDeath != 3 || PCDeaths != 3)
+            while ( )//Не понял как обратиться к героям и узнать мёртв ли он
             {
                 myTeam.ConclusionHeroes();
                 Console.WriteLine();
                 Console.WriteLine();
                 PcTeam.ConclusionHeroes();
 
-                Console.WriteLine();
-                myTeam.ChoiceLivingAttacking();
+                bool success = true;
+                while (success)
+                {
+                    Console.WriteLine("Кем атаковать: ");
+                    int.TryParse(Console.ReadLine(), out int attack);
+                    if (myTeam.ChoiceLiving(attack))
+                    {
+                        myTeam.DeathMessage(attack);
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
 
+                while (success)
+                {
+                    Console.WriteLine("Кого атаковать: ");
+                    int.TryParse(Console.ReadLine(), out int attack);
+                    if (PcTeam.ChoiceLiving(attack))
+                    {
+                        PcTeam.DeathMessage(attack);
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
+                //Дальше не понял, как из двух циклов выше вывести ATTACK
                 //Атака человека:
-                Console.WriteLine();
-                PcTeam.ChoiceLivingAttacked();
-                PcTeam.ChooseHeroTakingDamage(PcTeam.ChoiceLivingAttacked(), 
-                    myTeam.ChooseHeroGivingDamage(myTeam.ChoiceLivingAttacking()));
+                Console.WriteLine();   
+                PcTeam.ChooseHeroTakingDamage(PcTeam.ChoiceLiving(), 
+                    myTeam.ChooseHeroGivingDamage(myTeam.ChoiceLiving()));
                 //Атака компа:
-                PcTeam.ChoiceLivingAttacking();
-                PcTeam.ChoiceLivingAttacked();
-
-                myTeam.ChooseHeroTakingDamage(myTeam.ChoiceLivingAttacked(),
-                    PcTeam.ChooseHeroGivingDamage(PcTeam.ChoiceLivingAttacking()));              
+                myTeam.ChooseHeroTakingDamage(myTeam.ChoiceLiving(),
+                    PcTeam.ChooseHeroGivingDamage(PcTeam.ChoiceLiving()));
                 //Вывод:
-               
+                Console.Clear();
+                Console.WriteLine($"{myTeam[ChoiceLivingAttacking()]} ({myTeam.Name}) нанёс {ChooseHeroGivingDamage(ChoiceLivingAttacking())} " +
+                                  $"едениц урона {PcTeam.[ChoiceLivingAttacked()]} ({PcTeam.Name})");
+                Console.WriteLine($"{PcTeam[ChoiceLiving()]}. ");
+                Console.Write("Нажмите Enter...");
+                Console.ReadLine();
+                Console.Clear();
+
+                Console.Clear();
+                Console.WriteLine($"{PcTeam[ChoiceLivingAttacking()]} ({PcTeam.Name}) нанёс {ChooseHeroGivingDamage(ChoiceLivingAttacking())} " +
+                                  $"едениц урона {myTeam[ChoiceLivingAttacked()]} ({myTeam.Name})");
+                Console.WriteLine($"{myTeam[ChoiceLiving()]}. ");
+                Console.Write("Нажмите Enter...");
+                Console.ReadLine();
+                Console.Clear();
             }
         }
+
         public void EndGame()
         {
-            if (PCDeaths == 3 && MyDeath == 3)
+            if ( )
             {
                 Console.WriteLine("Ничья))");
             }
             else
             {
-                if (PCDeaths == 3)
+                if ( ) 
                 {
                     Console.WriteLine($"Победила команда {myTeam.Name}");
                 }
