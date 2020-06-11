@@ -74,21 +74,25 @@ namespace MiniRPGclass
             //attackig - ОН АТАКУЕТ !!!
             //attacked - ЕГО АТАКУЮТ !!!
             Console.Clear();
-            while ( )//Не понял как обратиться к героям и узнать мёртв ли он
+            while (!myTeam.EndCheck() || !PcTeam.EndCheck())
             {
                 myTeam.ConclusionHeroes();
                 Console.WriteLine();
                 Console.WriteLine();
                 PcTeam.ConclusionHeroes();
 
+                int PcAttacking = generation.Next(0, 3);
+                int PcAttacked = generation.Next(0, 3);
+                int attacking = 1;
+                int attacked = 1;
                 bool success = true;
                 while (success)
                 {
                     Console.WriteLine("Кем атаковать: ");
-                    int.TryParse(Console.ReadLine(), out int attack);
-                    if (myTeam.ChoiceLiving(attack))
+                    int.TryParse(Console.ReadLine(), out attacking);
+                    if (myTeam.ChoiceLiving(attacking))
                     {
-                        myTeam.DeathMessage(attack);
+                        myTeam.DeathMessage(attacking);
                     }
                     else
                     {
@@ -99,36 +103,36 @@ namespace MiniRPGclass
                 while (success)
                 {
                     Console.WriteLine("Кого атаковать: ");
-                    int.TryParse(Console.ReadLine(), out int attack);
-                    if (PcTeam.ChoiceLiving(attack))
+                    int.TryParse(Console.ReadLine(), out attacked);
+                    if (PcTeam.ChoiceLiving(attacked))
                     {
-                        PcTeam.DeathMessage(attack);
+                        PcTeam.DeathMessage(attacked);
                     }
                     else
                     {
                         success = false;
                     }
                 }
-                //Дальше не понял, как из двух циклов выше вывести ATTACK
+
                 //Атака человека:
                 Console.WriteLine();   
-                PcTeam.ChooseHeroTakingDamage(PcTeam.ChoiceLiving(), 
-                    myTeam.ChooseHeroGivingDamage(myTeam.ChoiceLiving()));
+                PcTeam.ChooseHeroTakingDamage(attacked - 1, 
+                    myTeam.ChooseHeroGivingDamage(attacking - 1));
                 //Атака компа:
-                myTeam.ChooseHeroTakingDamage(myTeam.ChoiceLiving(),
-                    PcTeam.ChooseHeroGivingDamage(PcTeam.ChoiceLiving()));
+                myTeam.ChooseHeroTakingDamage(PcAttacked,
+                    PcTeam.ChooseHeroGivingDamage(PcAttacking));
                 //Вывод:
+                //Не понял, как вывести имена персонажей и вывести о смерти персонажа
                 Console.Clear();
-                Console.WriteLine($"{myTeam[ChoiceLivingAttacking()]} ({myTeam.Name}) нанёс {ChooseHeroGivingDamage(ChoiceLivingAttacking())} " +
-                                  $"едениц урона {PcTeam.[ChoiceLivingAttacked()]} ({PcTeam.Name})");
+                Console.WriteLine($"{myTeam} ({myTeam.Name}) нанёс {myTeam.ChooseHeroGivingDamage(attacking - 1)} " +
+                                  $"едениц урона {PcTeam} ({PcTeam.Name})");
                 Console.WriteLine($"{PcTeam[ChoiceLiving()]}. ");
                 Console.Write("Нажмите Enter...");
                 Console.ReadLine();
                 Console.Clear();
 
-                Console.Clear();
-                Console.WriteLine($"{PcTeam[ChoiceLivingAttacking()]} ({PcTeam.Name}) нанёс {ChooseHeroGivingDamage(ChoiceLivingAttacking())} " +
-                                  $"едениц урона {myTeam[ChoiceLivingAttacked()]} ({myTeam.Name})");
+                Console.WriteLine($"{PcTeam} ({PcTeam.Name}) нанёс {PcTeam.ChooseHeroGivingDamage(PcAttacking)} " +
+                                  $"едениц урона {myTeam} ({myTeam.Name})");
                 Console.WriteLine($"{myTeam[ChoiceLiving()]}. ");
                 Console.Write("Нажмите Enter...");
                 Console.ReadLine();
@@ -138,13 +142,13 @@ namespace MiniRPGclass
 
         public void EndGame()
         {
-            if ( )
+            if (myTeam.EndCheck() && PcTeam.EndCheck())
             {
                 Console.WriteLine("Ничья))");
             }
             else
             {
-                if ( ) 
+                if (PcTeam.EndCheck() && !myTeam.EndCheck()) 
                 {
                     Console.WriteLine($"Победила команда {myTeam.Name}");
                 }

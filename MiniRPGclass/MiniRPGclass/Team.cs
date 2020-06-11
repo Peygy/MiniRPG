@@ -56,6 +56,19 @@ namespace MiniRPGclass
         {
             return team[num].Death;
         }
+        public bool EndCheck()
+        {
+            bool Check = true;
+            if(!team[0].Death && !team[1].Death && !team[2].Death)
+            {
+                return Check;
+            }
+            else
+            {
+                Check = false;
+                return Check;
+            }
+        }
         public void DeathMessage(int attack)//Выводит сообщенеи о смерти(сделал здесь, т.к с командой есть вопрос, как к ней обратиться)
         {
             Console.SetCursorPosition(0, 15);
