@@ -8,30 +8,30 @@ namespace MiniRPGclass
     class Hero
     {
         Random gener;
-        protected string Name { set; get; }
+        public string Name { protected set; get; }
         protected int Health { set; get; }
         protected int Damage { set; get; }
         public bool Death { set; get; }
         public Hero()
         {
             gener = new Random();
-            Death = true;
+            Death = false;
         }
         public void DeathCheck()//Проверка на смерть
         {
             if(Health <= 0)
             {
                 Health = 0;
-                Death = false;              
+                Death = true;              
             }
             else
             {
-                Death = true;
+                Death = false;
             }
         }
         public void Print()//Вывод характеристик героя
         {            
-            string Die = Death ? " " : " - мёртв";
+            string Die = Death ? " - мёртв" : " ";
             Console.WriteLine($"Имя: {Name} {Die}, Здоровье: {Health}, Базовый урон: {Damage}");
         }
         public int TakeDamage(int GetDamage)//Метод для получения урона

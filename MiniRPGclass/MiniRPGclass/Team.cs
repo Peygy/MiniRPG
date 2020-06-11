@@ -9,7 +9,7 @@ namespace MiniRPGclass
     class Team
     {
         public string Name { get; set; }
-        List<Hero> team;
+        protected List<Hero> team;
         public Team()
         {
             team = new List<Hero>();
@@ -21,6 +21,10 @@ namespace MiniRPGclass
         public void AddHero(Hero AddingHero)//Добавление героя в команду
         {
             team.Add(AddingHero);
+        }
+        public string GetName(int NameIndex)
+        {
+            return team[NameIndex].Name;
         }
         public bool CheckingTeam(Hero CharactNum)//Проверка на нахождение в команде
         {
@@ -34,11 +38,11 @@ namespace MiniRPGclass
             }
         }
 
-        public int ChooseHeroTakingDamage(int index, int count)//Выбор персонажа для получения урона
+        public virtual int ChooseHeroTakingDamage(int index, int count)//Выбор персонажа для получения урона
         {
             return team[index].TakeDamage(count);
         }
-        public int ChooseHeroGivingDamage(int index)//Выбор персонажа для нанесения урона
+        public virtual int ChooseHeroGivingDamage(int index)//Выбор персонажа для нанесения урона
         {
             return team[index].GiveDamage();
         }
@@ -56,28 +60,18 @@ namespace MiniRPGclass
         {
             return team[num].Death;
         }
-        public bool EndCheck()
+        public bool TeamDeathCheck()
         {
             bool Check = true;
-            if(!team[0].Death && !team[1].Death && !team[2].Death)
+            for (int t = 0; t < team.Count; t++)
             {
-                return Check;
+                if(team[t].Death)
+                {
+                    t++;
+                }
             }
-            else
-            {
-                Check = false;
-                return Check;
-            }
-        }
-        public void DeathMessage(int attack)//Выводит сообщенеи о смерти(сделал здесь, т.к с командой есть вопрос, как к ней обратиться)
-        {
-            Console.SetCursorPosition(0, 15);
-            Console.Write($"{team[attack - 1]} -  мёртв, выберите другого персонажа");//Вот здесь...
-            Console.ReadLine();
-            Console.SetCursorPosition(0, 15);
-            Console.WriteLine("                                                             " +
-                              "                              ");
-            Console.SetCursorPosition(0, 15);
+            Check = false;
+            return Check;
         }
     }
 }
