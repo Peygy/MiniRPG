@@ -7,7 +7,7 @@ namespace MiniRPGclass
     {       
         static void Main(string[] args)
         {
-            
+            GAME part1 = new GAME();           
         }
     }
 }

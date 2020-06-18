@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 namespace MiniRPGclass
 {
@@ -22,7 +23,7 @@ namespace MiniRPGclass
         {
             team.Add(AddingHero);
         }
-        public string GetName(int NameIndex)
+        public string GetHeroName(int NameIndex)
         {
             return team[NameIndex].Name;
         }
@@ -38,23 +39,22 @@ namespace MiniRPGclass
             }
         }
 
-        public virtual int ChooseHeroTakingDamage(int index, int count)//Выбор персонажа для получения урона
+        public virtual int ChooseHeroTakingDamage(int index, int count)//Метод для получения урона
         {
             return team[index].TakeDamage(count);
         }
-        public virtual int ChooseHeroGivingDamage(int index)//Выбор персонажа для нанесения урона
+        public virtual int ChooseHeroGivingDamage(int index)//Метод для нанесения урона
         {
             return team[index].GiveDamage();
         }
-        public void ConclusionHeroes()//Вывод героев
+        public string ConclusionHeroes()//Вывод героев
         {
-            Console.WriteLine($"Команда {Name}");
-            Console.WriteLine();
+            string output = $"Команда {Name}\n\n";
             for (int i = 0; i < team.Count; i++)
             {
-                Console.Write($"{i + 1}. ");
-                team[i].Print();
+                output += $"{i + 1}. {team[i].Print()}\n";
             }
+            return output;
         }
         public bool ChoiceLiving(int num)//Проверка на выбор живого персонажа
         {
@@ -63,13 +63,14 @@ namespace MiniRPGclass
         public bool TeamDeathCheck()
         {
             bool Check = true;
-            for (int t = 0; t < team.Count; t++)
+            int t = 0;
+            while(t < 3)
             {
-                if(team[t].Death)
+                if (team[t].Death)
                 {
                     t++;
                 }
-            }
+            }            
             Check = false;
             return Check;
         }

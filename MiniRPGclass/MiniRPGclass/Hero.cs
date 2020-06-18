@@ -16,26 +16,23 @@ namespace MiniRPGclass
         {
             gener = new Random();
             Death = false;
+        }        
+        public string Print()//Вывод характеристик героя
+        {            
+            string Die = Death ? " - мёртв" : null;
+            return $"Имя: {Name}{Die}, Здоровье: {Health}, Базовый урон: {Damage}";
         }
-        public void DeathCheck()//Проверка на смерть
+        public int TakeDamage(int GetDamage)//Метод для получения урона
         {
-            if(Health <= 0)
+            if (Health <= 0)
             {
                 Health = 0;
-                Death = true;              
+                Death = true;
             }
             else
             {
                 Death = false;
             }
-        }
-        public void Print()//Вывод характеристик героя
-        {            
-            string Die = Death ? " - мёртв" : " ";
-            Console.WriteLine($"Имя: {Name} {Die}, Здоровье: {Health}, Базовый урон: {Damage}");
-        }
-        public int TakeDamage(int GetDamage)//Метод для получения урона
-        {
             Health = Health - GetDamage;
             return Health;
         }
