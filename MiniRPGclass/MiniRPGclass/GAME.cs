@@ -18,10 +18,6 @@ namespace MiniRPGclass
             PcTeam = new PCTeam();
             myTeam = new PlayerTeam();
             heroes = new List<Hero>();
-            heroes.Add(new Bulgar());
-            heroes.Add(new Djager());
-            heroes.Add(new Samur());
-            heroes.Add(new Hunter());
         }
 
         public void ChooseName()// Определение имени команды 
@@ -44,6 +40,10 @@ namespace MiniRPGclass
 
         public void AddingHero()//Добавление героев в команды и их вывод
         {
+            heroes.Add(new Bulgar());
+            heroes.Add(new Djager());
+            heroes.Add(new Samur());
+            heroes.Add(new Hunter());
             for (int k = 0; k < heroes.Count; k++)
             {
                 Console.Write($"{k + 1}. ");
@@ -75,7 +75,7 @@ namespace MiniRPGclass
             }
         }
    
-        public void MainGame()//Основная Боёвка(НЕДОДЕЛАНА)
+        public void MainGame()//Основная Боёвка
         {
             //attackig - ОН АТАКУЕТ !!!
             //attacked - ЕГО АТАКУЮТ !!!
@@ -157,7 +157,6 @@ namespace MiniRPGclass
                 myTeam.ChooseHeroTakingDamage(PcAttacked,
                     PcTeam.ChooseHeroGivingDamage(PcAttacking));
                 //Вывод:
-                //Не понял, как вывести имена персонажей и вывести о смерти персонажа
                 Console.Clear();
                 Console.WriteLine($"{myTeam.GetName(attacking)} ({myTeam.Name}) нанёс {myTeam.ChooseHeroGivingDamage(attacking)} " +
                                   $"едениц урона {PcTeam.GetName(attacked)} ({PcTeam.Name})");
