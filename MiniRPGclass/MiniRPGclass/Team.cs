@@ -62,17 +62,21 @@ namespace MiniRPGclass
         }
         public bool TeamDeathCheck()
         {
+            int i = 0;
             bool Check = true;
-            int t = 0;
-            while(t < 3)
-            {
+            for(int t = 0; t < 3; t++)
+            {                
                 if (team[t].Death)
                 {
-                    t++;
+                    i++;
                 }
-            }            
-            Check = false;
-            return Check;
+            }      
+            
+            if(i != 3)
+            {
+                Check = false;
+            }           
+            return Check;          
         }
     }
 }

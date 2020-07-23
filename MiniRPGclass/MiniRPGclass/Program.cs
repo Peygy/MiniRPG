@@ -7,7 +7,10 @@ namespace MiniRPGclass
     {       
         static void Main(string[] args)
         {
-            GAME part1 = new GAME();           
+            GAME part1 = new GAME();
+            part1.StartGame();
+            part1.MainGame();
+            part1.EndGame();
         }
     }
 }

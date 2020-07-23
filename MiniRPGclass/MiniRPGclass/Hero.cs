@@ -29,10 +29,6 @@ namespace MiniRPGclass
                 Health = 0;
                 Death = true;
             }
-            else
-            {
-                Death = false;
-            }
             Health = Health - GetDamage;
             return Health;
         }

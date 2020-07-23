@@ -16,9 +16,6 @@ namespace MiniRPGclass
             generation = new Random();
             PcTeam = new PCTeam();
             myTeam = new PlayerTeam();
-            StartGame();
-            MainGame();
-            EndGame();
         }
 
         public void StartGame()
@@ -74,6 +71,7 @@ namespace MiniRPGclass
                     PcTeam.AddHero(heroes[CompCharct]);
                     i++;
                 }
+                
             }
         }
 
@@ -82,7 +80,7 @@ namespace MiniRPGclass
             //attackig - ОН АТАКУЕТ !!!
             //attacked - ЕГО АТАКУЮТ !!!
             Console.Clear();
-            while (myTeam.TeamDeathCheck() && PcTeam.TeamDeathCheck())
+            while (!myTeam.TeamDeathCheck() && !PcTeam.TeamDeathCheck())
             {
                 Console.WriteLine(myTeam.ConclusionHeroes());
                 Console.WriteLine();
