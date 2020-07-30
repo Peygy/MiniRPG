@@ -8,13 +8,14 @@ namespace MiniRPGclass
     {
         public override int ChooseHeroTakingDamage(int index, int count)//Выбор персонажа для получения урона
         {
-            index--;
             return team[index].TakeDamage(count);
         }
         public override int ChooseHeroGivingDamage(int index)//Выбор персонажа для нанесения урона
         {
+            Random generation = new Random();
+            int Scatter = generation.Next(-10, 11);
             index--;
-            return team[index].GiveDamage();
+            return team[index].GiveDamage() + Scatter;
         }
     }
 }

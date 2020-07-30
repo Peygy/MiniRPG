@@ -45,7 +45,9 @@ namespace MiniRPGclass
         }
         public virtual int ChooseHeroGivingDamage(int index)//Метод для нанесения урона
         {
-            return team[index].GiveDamage();
+            Random generation = new Random();
+            int Scatter = generation.Next(-10, 11);
+            return team[index].GiveDamage() + Scatter;
         }
         public string ConclusionHeroes()//Вывод героев
         {

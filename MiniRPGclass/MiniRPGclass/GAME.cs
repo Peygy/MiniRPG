@@ -101,6 +101,7 @@ namespace MiniRPGclass
                 bool success = true;
                 while (success)
                 {
+                    Console.SetCursorPosition(0, 14);
                     Console.WriteLine("Кем атаковать: ");
                     int.TryParse(Console.ReadLine(), out attacking);
                     if (myTeam.ChoiceLiving(attacking - 1))
@@ -109,9 +110,7 @@ namespace MiniRPGclass
                         Console.Write("Герой мёртв, выберите другого персонажа. Нажми Enter");
                         Console.ReadLine();
                         Console.SetCursorPosition(0, 15);
-                        Console.WriteLine("                                                             " +
-                                          "                                                             ");
-                        Console.SetCursorPosition(0, 15);
+                        Console.WriteLine("                                                                 ");
                     }
                     else
                     {
@@ -121,18 +120,17 @@ namespace MiniRPGclass
 
                 success = true;
                 while (success)
-                {
+                {                    
+                    Console.SetCursorPosition(0, 16);
                     Console.WriteLine("Кого атаковать: ");
                     int.TryParse(Console.ReadLine(), out attacked);
                     if (PcTeam.ChoiceLiving(attacked - 1))
                     {
-                        Console.SetCursorPosition(0, 15);
+                        Console.SetCursorPosition(0, 17);
                         Console.Write("Герой мёртв, выберите другого персонажа. Нажми Enter");
                         Console.ReadLine();
-                        Console.SetCursorPosition(0, 15);
-                        Console.WriteLine("                                                             " +
-                                          "                                                             ");
-                        Console.SetCursorPosition(0, 15);
+                        Console.SetCursorPosition(0, 17);
+                        Console.WriteLine("                                                                ");
                     }
                     else
                     {
@@ -144,7 +142,7 @@ namespace MiniRPGclass
                 while (success)
                 {
                     PcAttacking = generation.Next(0, 3);
-                    if (!PcTeam.ChoiceLiving(PcAttacking))
+                    if (!myTeam.ChoiceLiving(PcAttacking))
                     {
                         success = false;
                     }
@@ -154,15 +152,15 @@ namespace MiniRPGclass
                 while (success)
                 {
                     PcAttacked = generation.Next(0, 3);
-                    if (!PcTeam.ChoiceLiving(PcAttacked))
+                    if (!myTeam.ChoiceLiving(PcAttacked))
                     {
                         success = false;
                     }
                 }
 
                 //Атака человека:
-                Console.WriteLine();   
-                PcTeam.ChooseHeroTakingDamage(attacked, myTeam.ChooseHeroGivingDamage(attacking));
+                Console.WriteLine();
+                PcTeam.ChooseHeroTakingDamage(attacked - 1, myTeam.ChooseHeroGivingDamage(attacking));
                 //Атака компа:
                 myTeam.ChooseHeroTakingDamage(PcAttacked, PcTeam.ChooseHeroGivingDamage(PcAttacking));
                 //Вывод:
