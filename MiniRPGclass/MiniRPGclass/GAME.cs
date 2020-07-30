@@ -50,17 +50,23 @@ namespace MiniRPGclass
             }
             i = 0;
             while (i < 3)
-            {
+            {              
                 Console.SetCursorPosition(0, heroes.Count + 2);
-                Console.Write("                          ");
-                Console.SetCursorPosition(0, heroes.Count + 2);
-                Console.WriteLine("Выбери персонажа: ");
+                Console.WriteLine("Выбери герой: ");
                 int.TryParse(Console.ReadLine(), out int CharactNum);
                 if (!myTeam.CheckingTeam(heroes[CharactNum - 1]))
                 {
                     myTeam.AddHero(heroes[CharactNum - 1]);
                     i++;
                 }
+                else
+                {
+                    Console.SetCursorPosition(0, heroes.Count + 3);
+                    Console.Write("У вас уже есть этот герой, Нажмите Enter");
+                    Console.ReadLine();
+                }
+                Console.SetCursorPosition(0, heroes.Count + 3);
+                Console.Write("                                              ");
             }
             i = 0;
             while (i < 3)
@@ -87,16 +93,17 @@ namespace MiniRPGclass
                 Console.WriteLine();
                 Console.WriteLine(PcTeam.ConclusionHeroes());
 
-                int PcAttacking = 0;
+                int PcAttacking = 10;
                 int PcAttacked = 0;
                 int attacking = 0;
                 int attacked = 0;
+
                 bool success = true;
                 while (success)
                 {
                     Console.WriteLine("Кем атаковать: ");
                     int.TryParse(Console.ReadLine(), out attacking);
-                    if (myTeam.ChoiceLiving(attacking))
+                    if (myTeam.ChoiceLiving(attacking - 1))
                     {
                         Console.SetCursorPosition(0, 15);
                         Console.Write("Герой мёртв, выберите другого персонажа. Нажми Enter");
@@ -112,11 +119,12 @@ namespace MiniRPGclass
                     }
                 }
 
+                success = true;
                 while (success)
                 {
                     Console.WriteLine("Кого атаковать: ");
                     int.TryParse(Console.ReadLine(), out attacked);
-                    if (PcTeam.ChoiceLiving(attacked))
+                    if (PcTeam.ChoiceLiving(attacked - 1))
                     {
                         Console.SetCursorPosition(0, 15);
                         Console.Write("Герой мёртв, выберите другого персонажа. Нажми Enter");
@@ -132,6 +140,7 @@ namespace MiniRPGclass
                     }
                 }
 
+                success = true;
                 while (success)
                 {
                     PcAttacking = generation.Next(0, 3);
@@ -140,6 +149,8 @@ namespace MiniRPGclass
                         success = false;
                     }
                 }
+
+                success = true;
                 while (success)
                 {
                     PcAttacked = generation.Next(0, 3);
@@ -156,14 +167,14 @@ namespace MiniRPGclass
                 myTeam.ChooseHeroTakingDamage(PcAttacked, PcTeam.ChooseHeroGivingDamage(PcAttacking));
                 //Вывод:
                 Console.Clear();
-                Console.WriteLine($"{myTeam.GetHeroName(attacking)} ({myTeam.Name}) нанёс {myTeam.ChooseHeroGivingDamage(attacking)} " +
-                                  $"едениц урона {PcTeam.GetHeroName(attacked)} ({PcTeam.Name})");
+                Console.WriteLine($"{myTeam.GetHeroName(attacking - 1)} ({myTeam.Name}) нанёс {myTeam.ChooseHeroGivingDamage(attacking)} " +
+                                  $"единиц урона {PcTeam.GetHeroName(attacked - 1)} ({PcTeam.Name})");
                 Console.Write("Нажмите Enter...");
                 Console.ReadLine();
                 Console.Clear();
 
                 Console.WriteLine($"{PcTeam.GetHeroName(PcAttacking)} ({PcTeam.Name}) нанёс {PcTeam.ChooseHeroGivingDamage(PcAttacking)} " +
-                                  $"едениц урона {myTeam.GetHeroName(PcAttacked)} ({myTeam.Name})");;
+                                  $"единиц урона {myTeam.GetHeroName(PcAttacked)} ({myTeam.Name})");;
                 Console.Write("Нажмите Enter...");
                 Console.ReadLine();
                 Console.Clear();

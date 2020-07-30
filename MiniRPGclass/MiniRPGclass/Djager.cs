@@ -8,7 +8,7 @@ namespace MiniRPGclass
     {
         public Djager() : base()
         {
-            Name = "Бандит";
+            Name = "Джагернаут";
             Health = 700;
             Damage = 35;
         }

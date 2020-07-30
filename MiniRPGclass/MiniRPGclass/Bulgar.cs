@@ -8,7 +8,7 @@ namespace MiniRPGclass
     {
         public Bulgar() : base()
         {
-            Name = "Джагернаут";
+            Name = "Бандит";
             Health = 185;
             Damage = 80;
         }
